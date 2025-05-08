@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:04:01 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/08 00:41:45 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:10:21 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,21 @@ int	ft_append(char **exec)
 void	ft_heredoc_process(char **exec, int pipefd[2])
 {
 	char	*str;
+	int		i;
 
 	signal(SIGQUIT, SIG_DFL);
 	while (1)
 	{
 		str = readline("> ");
-		printf("DEBUG: comparing str=\"%s\" with exec[1]=\"%s\"\n", str, exec[1]);
 		if (!str || !exec[1] || ft_strcmp(str, exec[1]) == 0)
 		{
 			free(str);
-			ft_printf(1, "exit\n");
+			ft_printf(1, "\n");
 			close(pipefd[1]);
 			exit(0);
 		}
-		ft_printf(pipefd[1], "%s", str);
-		ft_printf(pipefd[1], "\n");
+		i = ft_strlen(str);
+		ft_printf(pipefd[1],"%s\n", str);
 		free(str);
 	}
 }
@@ -128,7 +128,6 @@ int		ft_heredoc(char **exec)
 	}
 	else
 	{
-		printf("HEREDOC PARENT PID: %d waiting for %d\n", getpid(), pid);
 		close(pipeh[1]);
 		if (ft_heredoc_parent(pid, pipeh, &status) == -1)
 			return (-1);

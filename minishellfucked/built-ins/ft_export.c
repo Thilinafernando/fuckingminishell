@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 01:47:10 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/07 23:42:47 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:41:26 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	exisit(char **matrix, char *arg)
 		len++;
 	while (matrix[i])
 	{
-		if (ft_strncmp(matrix[i], arg, len) == 0)
+		if (ft_strncmp(matrix[i], arg, len) == 0 && matrix[i][len] == '=')
 			return (i);
 		i++;
 	}
@@ -260,7 +260,7 @@ void	print_export(t_info *info)
 		while (info->tmp[i][++j])
 		{
 			ft_printf(1, "%c", info->tmp[i][j]);
-			if ((info->tmp[i][j] == 61 && flag == 0) || !info->tmp[i][j + 1])
+			if ((info->tmp[i][j] == 61 && flag == 0) || (!info->tmp[i][j + 1] && flag != 0))
 			{
 				ft_printf(1, "%c", c);
 				flag = 1;
@@ -290,7 +290,7 @@ void	ft_export(t_info *info, char **args)
 	}
 	while (args[i])
 	{
-		if((verify(args[i]) != 0) || (verify_equal(args[i]) != 0))
+		if((verify(args[i]) != 0))
 		{
 			ft_printf(2, "Minishell: export: '%s' : not a valid identifier\n", args[i]);
 			return (estat(1));
@@ -305,11 +305,11 @@ void	ft_export(t_info *info, char **args)
 		tmp[x] = NULL;
 		x++;
 	}
-	i = 0;
+	i = 1;
 	j = 0;
 	while (args[i])
 	{
-		if((verify(args[i]) == 0) && (verify_equal(args[i]) == 0))
+		if((verify(args[i]) == 0))
 		{
 			tmp[j] = form_str((args[i]));
 			j++;

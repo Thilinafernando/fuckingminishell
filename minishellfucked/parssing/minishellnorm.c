@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishellnorm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:22:23 by ilmahjou          #+#    #+#             */
-/*   Updated: 2025/05/07 23:46:16 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:17:25 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,13 +307,13 @@ int main(int ac, char **av, char **env)
     using_history();
     while (1)
     {
+		set_signals();
         info.pos = 0;
         info.flag_ri = 0;
         info.exec = NULL;
-        info.env = env;
         info.tmp = NULL;
         //signal(SIGINT, ctrl_c);
-        signal(SIGQUIT, estat);
+        // signal(SIGQUIT, estat);
         line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
         if (!line)
         {
@@ -326,7 +326,7 @@ int main(int ac, char **av, char **env)
             token = tokenize_input(line);  // Tokenize the input line
             if (token)
             {
-				printf("%d\n", token->type);
+				// printf("%d\n", token->type);
                 form_main(token, &info);
 				i = 0;
 				while (info.exec[i])
@@ -335,20 +335,19 @@ int main(int ac, char **av, char **env)
 					arg_execve(&info.exec[i], &info);
 					while (info.exec[i][j])
 					{
-						printf("%s\n", info.exec[i][j]);
+						// printf("%s\n", info.exec[i][j]);
 						j++;
 					}
-					printf("----------------------\n");
+					// printf("----------------------\n");
 					i++;
-					fflush(stdout);
+					// fflush(stdout);
 				}
                 ft_execution(&info);
                 free_tokens(token);  // Use your token free function
             }
         }
         free(line);  // Free the line after processing
-		if (info.exec && *info.exec)  // Check if it exists and points to something
-    		free_mat(*info.exec);  // Pass the char** that the char*** points to
+		free3(info.exec);
     }
     clear_history();
     return (0);

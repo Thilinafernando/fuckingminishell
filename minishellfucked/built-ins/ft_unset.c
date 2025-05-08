@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 14:48:21 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/02 20:15:51 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 18:30:17 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ int	yes_unset(t_info *info, char **args, int i)
 	int	x;
 	int	len;
 
-	x = 0;
+	x = 1;
 	while (args[x])
 	{
 		len = ft_strlen(args[x]);
-		if (ft_strncmp(args[x], info->tmp[i], len) == 0 && verify_equal(args[x]) == -1)
+		if (ft_strncmp(args[x], info->tmp[i], len) == 0 && info->tmp[i][len] == '=' && verify_equal(args[x]) == -1)
 			return (1);
 		x++;
 	}
@@ -88,7 +88,9 @@ static void	proccess(t_info *info, char **args)
 	while (info->tmp[i])
 		i++;
 	size = i - (calcu(args, info) - dups(args));
-	info->env = malloc((size) * sizeof(char *));
+	info->env = malloc((size + 1) * sizeof(char *));
+	if (!info->env)
+		return (estat(1));
 	i = 0;
 	j = 0;
 	while (info->tmp[i])
@@ -110,7 +112,7 @@ static void	proccess(t_info *info, char **args)
 
 void	ft_unset(t_info *info, char **args)
 {
-	if (!args[0])
+	if (!args[1])
 		return (estat(1));
 	matrix_tmp(info);
 	free_mat(info->env);

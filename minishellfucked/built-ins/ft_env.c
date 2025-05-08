@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 19:48:49 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/07 01:58:40 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:13:02 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	form_env(char **env, t_info	*info)
 	while(env[count])
 	{
 		info->env[count] = ft_strdup(env[count]);
-		printf("%s\n", info->env[count]);
 		count++;
 	}
 	info->env[count] = NULL;
@@ -44,7 +43,7 @@ void	ft_env(t_info *info)
 	i = 0;
 	while (info->env[i])
 	{
-		ft_printf(1, "%s\n", info->env[i]);
+		ft_printf(STDOUT_FILENO, "%s\n", info->env[i]);
 		i++;
 	}
 	return (estat(0));

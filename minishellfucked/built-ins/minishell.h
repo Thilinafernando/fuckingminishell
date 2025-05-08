@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:09:42 by ilmahjou          #+#    #+#             */
-/*   Updated: 2025/05/07 22:58:18 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:52:45 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n);
 void	ft_refresh_fd(int fd_in, int fd_out);
 
 
-int	is_builtin(char **matrix, t_info *info);
+int is_builtin(char **matrix);
 
 // free
 void	free3(char ***matrix);

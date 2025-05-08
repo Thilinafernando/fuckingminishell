@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 18:07:57 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/04/30 22:19:02 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:33:46 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	ft_check(int fd, const char c, va_list args)
 	return (count);
 }
 
+
 int	ft_printf(int fd,const char *convs, ...)
 {
 	va_list		args;
@@ -45,7 +46,7 @@ int	ft_printf(int fd,const char *convs, ...)
 	va_start(args, convs);
 	while (convs[i] != '\0')
 	{
-		if (convs[i] == '%')
+		if (convs[i] == '%' && convs[i + 1])
 		{
 			i++;
 			if (convs[i] == 32)

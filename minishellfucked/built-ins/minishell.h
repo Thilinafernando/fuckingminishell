@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 18:09:42 by ilmahjou          #+#    #+#             */
-/*   Updated: 2025/05/08 17:52:45 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 17:54:59 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	arg_execve(char ***command, t_info *info);
 void	ft_execution(t_info *info);
 void	close_fd(int *ar);
 void		failure(int fd[2]);
-void		failure_command(int fd[2], char **matrix, char *str);
+void		failure_command(int fd[2], char **matrix, char **str);
 char	*abs_path(char *command, t_info *info);
 char	*build_full(char *path, char *command);
 char	**find_path(char **envp);

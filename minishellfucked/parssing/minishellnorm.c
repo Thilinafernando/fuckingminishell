@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:22:23 by ilmahjou          #+#    #+#             */
-/*   Updated: 2025/05/08 18:17:25 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 21:37:56 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,19 +335,18 @@ int main(int ac, char **av, char **env)
 					arg_execve(&info.exec[i], &info);
 					while (info.exec[i][j])
 					{
-						// printf("%s\n", info.exec[i][j]);
+						printf("%s\n", info.exec[i][j]);
 						j++;
 					}
-					// printf("----------------------\n");
+					printf("----------------------\n");
 					i++;
-					// fflush(stdout);
+					fflush(stdout);
 				}
                 ft_execution(&info);
                 free_tokens(token);  // Use your token free function
             }
         }
         free(line);  // Free the line after processing
-		free3(info.exec);
     }
     clear_history();
     return (0);

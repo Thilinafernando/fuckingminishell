@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 18:29:40 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/08 17:52:06 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 21:18:20 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	one_exec(char **command, t_info *info, int fd[2])
 	str = abs_path(command[0], info);
 	if (!str)
 	{
-		failure_command(fd, command, command[0]);
+		failure_command(fd, command, &command[0]);
 		exit (exit_status);
 	}
 	execve(str, command, info->env);
@@ -143,6 +143,26 @@ int	istt_builtin(char ***matrix, t_info *info)
 	return (i);
 }
 
+int	is_only_redirection(char ***matrix)
+{
+	int	i;
+
+	i = 0;
+	while (matrix[i])
+	{
+		if (!(matrix[i][0]) ||
+			!(ft_strcmp(matrix[i][0], "<") == 0 ||
+			  ft_strcmp(matrix[i][0], ">") == 0 ||
+			  ft_strcmp(matrix[i][0], "<<") == 0 ||
+			  ft_strcmp(matrix[i][0], ">>") == 0))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
+
+
+
 void	ft_execution(t_info *info)
 {
 	int	fd_in;
@@ -162,7 +182,7 @@ void	ft_execution(t_info *info)
 	prevpipe = -42;
 	while (info->exec[i])
 	{
-		if (ft_isalpha(info->exec[i][0][0]) == 1)
+		if (ft_isalpha(info->exec[i][0][0]) == 1 || is_redirection(info->exec[i]))
 			count++;
 		i++;
 	}
@@ -170,10 +190,23 @@ void	ft_execution(t_info *info)
 	mat = 0;
 	while (i < count)
 	{
+		if (is_only_redirection(info->exec) == 0)
+		{
+			while(info->exec[mat])
+			{
+				ft_redirections(info->exec[mat]);
+				mat++;
+			}
+			ft_refresh_fd(fd_in, fd_out);
+			break;
+		}
 		if (count == 1)
 		{
 			if (istt_builtin(info->exec, info) != -1)
+			{
+				ft_refresh_fd(fd_in, fd_out);
 				break;
+			}
 		}
 		if (i != (count - 1))
 		{
@@ -212,6 +245,8 @@ void	ft_execution(t_info *info)
 					return (exit(1));
 				mat++;
 			}
+			if (!info->exec[mat])
+				return ;
 			if (is_builtin(info->exec[mat]))
 			{
 				exec_builtin(info->exec[mat], info);

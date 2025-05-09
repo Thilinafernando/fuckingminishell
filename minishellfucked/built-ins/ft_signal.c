@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:15:16 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/03 20:34:03 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:43:04 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	estat(int i)
 void	ctrl_c(int sig)
 {
 	(void)sig;
-	ft_printf(1," ^C\n");
+	ft_printf(1,"\n");
 	estat(130);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
 }
 
-// void	sigquit(int sig)
-// {
-// 	(void)sig;
-// 	ft_printf(1, "Quit (core dumped)\n");
-// 	estat(131);
-// }
+void	sigquit(int sig)
+{
+	(void)sig;
+	// ft_printf(1, "Quit (core dumped)\n");
+	estat(131);
+}
 
 void	set_signals(void)
 {

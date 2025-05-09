@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 22:13:33 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/07 23:23:55 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:28:40 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,53 @@
 // the -n flag removes the newline that it prints
 // $USER AND STUFF
 // $?
+// echo
+// first input
+// pipe
+
+int	checks(char **args, int i, int flag)
+{
+	if ((ft_strncmp(args[i], "-n", 2) != 0))
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		flag = 0;
+	}
+	if ((ft_strncmp(args[i], "-n", 2) == 0) && flag != 1)
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+	}
+	return (flag);
+}
 
 void	ft_echo(char **args)
 {
 	int	i;
+	int	flag;
 
 	i = 1;
+	flag = 0;
+	if (!args[1])
+	{
+		ft_printf(1, "\n");
+		return ;
+	}
 	while (args[i])
 	{
-		if (ft_strcmp(args[1], "-n") != 0 && i == 0)
+		if (ft_strncmp(args[1], "-n", 2) != 0 && i == 1)
 			printf("%s", args[i]);
-		if (i != 0)
-		{
-			printf("%s", args[i]);
-			if (args[i + 1])
-				printf(" ");
-		}
+		else if ((ft_strncmp(args[1], "-n", 2) == 0 && i == 1))
+			flag = 1;
+		if (i > 1)
+			flag = checks(args, i, flag);
 		i++;
 	}
-	if (ft_strcmp(args[1], "-n") != 0)
+	if (args[1] && ft_strncmp(args[1], "-n", 2) != 0)
 		printf("\n");
+	free_mat(args);
 	return (estat(0));
 }
 

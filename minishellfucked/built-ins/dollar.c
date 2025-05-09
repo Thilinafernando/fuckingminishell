@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   dollar.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:47:35 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/06 23:11:14 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 21:40:15 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+// go inside double quotes and single quotes
 
 #include "minishell.h"
 
@@ -122,12 +124,19 @@ int	arg_execve(char ***command, t_info *info)
 	{
 		if ((*command)[i][0] == '$')
 		{
-			if ((*command)[i + 1][0] == ';' || (*command)[i + 1][0] == ':')
+			if ((*command)[i + 1][0] == ';')
 			{
 				expansion = ft_strdup((*command)[i + 1] + 1);
 				free((*command)[i + 1]);
 				(*command)[i + 1] = expansion;
 				break;
+			}
+			if ((*command)[i + 1][0] == ':')
+			{
+				expansion = ft_strdup((*command)[i + 1] + 1);
+				free((*command)[i + 1]);
+				(*command)[i + 1] = expansion;
+				free (expansion);
 			}
 			flag++;
 			expansion = dollarfull((*command)[i + 1], info);

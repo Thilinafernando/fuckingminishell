@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intergration.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 20:19:42 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/07 23:46:07 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 18:22:04 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,27 @@ void	save_command(t_info *info, t_token **token)
 		if (tmp->type == 2 || tmp->type == 4
 			|| tmp->type == 3 || tmp->type == 7)
 			tmp = tmp->next->next;
+		else if (tmp->type == 8)
+		{
+			i += 2;
+			tmp = tmp->next;
+		}
 		else
 		{
 			tmp = tmp->next;
 			i++;
 		}
 	}
+	save_redirections(info, (*token));
+	if (i == 0)
+	{
+		while ((*token))
+			(*token) = (*token)->next;
+		return ;
+	}
 	matrix = malloc((i + 1) * sizeof(char *));
 	if (!matrix)
 		return ;
-	save_redirections(info, (*token));
 	j = 0;
 	while ((*token) && (*token)->type != 1)
 	{
@@ -75,6 +86,12 @@ void	save_command(t_info *info, t_token **token)
 				matrix[j] = ft_strjoin(";", ft_strdup((*token)->content));
 			else if ((*token)->type == 6)
 				matrix[j] = ft_strjoin(":", ft_strdup((*token)->content));
+			else if ((*token)->type == 8)
+			{
+				matrix[j] = ft_strdup("$");
+				j++;
+				matrix[j] = ft_strdup((*token)->content);
+			}
 			else
 				matrix[j] = ft_strdup((*token)->content);
 			j++;
@@ -114,15 +131,18 @@ void	ft_conditions(t_info *info, t_token **token)
 void	form_main(t_token *token, t_info *info)
 {
 	int		i;
+	int		flag;
 	int		size;
 	t_token	*tmp;
 	char	***matrix;
 
 	size = 0;
+	flag = 0;
 	tmp = token;
 	while(tmp)
 	{
-		size++;
+		if (tmp->type == 0)
+			size++;
 		while (tmp && tmp->type != 1)
 		{
 			if (tmp->type == 2 || tmp->type == 4

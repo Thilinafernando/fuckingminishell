@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 22:04:01 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/08 15:10:21 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 19:27:57 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ void	ft_heredoc_process(char **exec, int pipefd[2])
 	char	*str;
 	int		i;
 
-	signal(SIGQUIT, SIG_DFL);
 	while (1)
 	{
 		str = readline("> ");
 		if (!str || !exec[1] || ft_strcmp(str, exec[1]) == 0)
 		{
+			if (!str)
+				ft_printf(2, "Minishell: warning: here-document delimited by end-of-file (wanted %s)\n", exec[1]);
 			free(str);
-			ft_printf(1, "\n");
 			close(pipefd[1]);
 			exit(0);
 		}
@@ -86,7 +86,6 @@ void	ft_heredoc_process(char **exec, int pipefd[2])
 
 int	ft_heredoc_parent(int pid, int pipeh[2], int *status)
 {
-	signal(SIGINT, SIG_IGN);
 	waitpid(pid, status, 0);
 	set_signals();
 	if (WIFSIGNALED(*status))
@@ -122,9 +121,9 @@ int		ft_heredoc(char **exec)
 	if (pid == 0)
 	{
 		close(pipeh[0]);
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		ft_heredoc_process(exec, pipeh);
-		exit(0);
 	}
 	else
 	{

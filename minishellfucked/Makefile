@@ -18,7 +18,7 @@ SRCDIR = built-ins/
 SRC = built-ins/ft_pwd.c ft_env.c ft_cd.c ft_export.c ft_unset.c ft_echo.c ft_intergration.c testing_utils.c dollar.c \
 		ft_signal.c redirections.c utils_pipe.c ft_pipe.c ft_execution.c free.c ft_exit.c refresh_redirections.c
 PARSDIR = parssing/
-PRC = parssing/minishellnorm.c process_quotes.c utils.c
+PRC = parssing/minishellnorm.c process_quotes.c utils.c 
 
 #BONUSDIR = bonus/
 #BONUS = bonus/
@@ -76,6 +76,9 @@ fclean: clean
 	rm -rf $(NAME)
 
 re: fclean all
+
+vall: all clean
+		valgrind --track-origins=yes --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes --suppressions=readline.supp ./minishell
 
 .PHONY: all bonus clean fclean re
 

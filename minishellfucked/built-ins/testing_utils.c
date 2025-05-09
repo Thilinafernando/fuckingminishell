@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   testing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 14:36:36 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/05 01:31:01 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:46:25 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,23 @@ char	*ft_strncpy(char *dest, char *src, unsigned int n)
 	return (dest);
 }
 
+void	free_mat(char **matrix)
+{
+	int	i;
 
+	i = 0;
+	if (matrix == NULL)
+		return ;
+	while (matrix[i])
+		i++;
+	i--;
+	while (i >= 0 && matrix[i])
+	{
+		free(matrix[i]);
+		i--;
+	}
+    free(matrix);
+	matrix = NULL;
+	return ;
+}
 

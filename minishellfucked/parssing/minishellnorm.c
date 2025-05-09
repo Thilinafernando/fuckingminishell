@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:22:23 by ilmahjou          #+#    #+#             */
-/*   Updated: 2025/05/09 21:37:56 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:47:20 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int main(int ac, char **av, char **env)
         line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
         if (!line)
         {
-            write(1, "exit\n", 5);  // Print exit message on Ctrl+D
+            write(1, "exit\n", 5);// Print exit message on Ctrl+D
             break;
         }
         if (line[0] != '\0')
@@ -348,6 +348,8 @@ int main(int ac, char **av, char **env)
         }
         free(line);  // Free the line after processing
     }
+	free_mat(info.env);
+	free3(info.exec);
     clear_history();
     return (0);
 }

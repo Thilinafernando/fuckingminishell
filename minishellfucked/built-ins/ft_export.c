@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/22 01:47:10 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/08 18:41:26 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:25:16 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,25 +103,6 @@ char	*form_str(char *str)
 	return (changed);
 }
 
-void	free_mat(char **matrix)
-{
-	int	i;
-
-	i = 0;
-	if (matrix == NULL)
-		return ;
-	while (matrix[i])
-		i++;
-	i--;
-	while (i >= 0 && matrix[i])
-	{
-		free(matrix[i]);
-		i--;
-	}
-	free(matrix);
-	matrix = NULL;
-	return ;
-}
 
 void	matrix_tmp(t_info *info)
 {
@@ -280,6 +261,7 @@ void	ft_export(t_info *info, char **args)
 	int	count;
 	char	**tmp;
 
+	printf("ft_export called!\n");
 	i = 1;
 	x = 0;
 	count = 0;

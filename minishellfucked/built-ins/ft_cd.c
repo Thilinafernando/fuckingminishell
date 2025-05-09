@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:46:45 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/08 16:01:25 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:00:11 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_cd(char **args, t_info *info)
 
 	home = home_path(info);
 	if (args[2])
-		return (ft_printf(2, "MINISHELL: cd: too many arguments\n"), estat(1));
+		return (ft_printf(2, "MINISHELL: cd: too many arguments\n"), free(home), estat(1));
 	if (args[1] == NULL || (ft_strcmp(args[1], "~") == 0))
 	{
 		chdir((const char*)home);

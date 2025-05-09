@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 22:13:33 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/09 18:28:40 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 22:00:20 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	ft_echo(char **args)
 	}
 	if (args[1] && ft_strncmp(args[1], "-n", 2) != 0)
 		printf("\n");
-	free_mat(args);
 	return (estat(0));
 }
 

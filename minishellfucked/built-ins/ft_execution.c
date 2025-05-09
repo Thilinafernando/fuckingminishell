@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 18:29:40 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/09 21:18:20 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/09 23:09:05 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void	ft_execution(t_info *info)
 			if (istt_builtin(info->exec, info) != -1)
 			{
 				ft_refresh_fd(fd_in, fd_out);
+				free3(info->exec);
 				break;
 			}
 		}
@@ -276,6 +277,7 @@ void	ft_execution(t_info *info)
 			if (waitpid(pid, &status, 0) == -1)
 			{
 				ft_printf(2, "Minishell: error waitpid\n");
+				free3(info->exec);
 				exit(1);
 			}
 			if (WIFEXITED(status))
@@ -283,9 +285,12 @@ void	ft_execution(t_info *info)
 			else if (WIFSIGNALED(status))
 				exit_status = 128 + WTERMSIG(status);
 		}
+		free3(info->exec);
 		ft_refresh_fd(fd_in, fd_out);
 		i++;
 	}
+	close(fd_in);
+	close(fd_out);
 }
 
 

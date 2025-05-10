@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 20:19:42 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/09 22:50:51 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:02:10 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	save_redirections(t_info *info, t_token *token)
 	}
 }
 
+
 void	save_command(t_info *info, t_token **token)
 {
 	int		i;
@@ -55,10 +56,10 @@ void	save_command(t_info *info, t_token **token)
 		if (tmp->type == 2 || tmp->type == 4
 			|| tmp->type == 3 || tmp->type == 7)
 			tmp = tmp->next->next;
-		else if (tmp->type == 8)
+		else if (tmp->type == 8 || tmp->type == 6)
 		{
-			i += 2;
-			tmp = tmp->next;
+				i += 2;
+				tmp = tmp->next;
 		}
 		else
 		{

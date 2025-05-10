@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tkurukul <thilinaetoro4575@gmail.com>      +#+  +:+       +#+        */
+/*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:47:13 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/07 01:06:51 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/10 17:44:40 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	print_pwd(void)
 
 	pwd = ft_pwd();
 	ft_printf(1, "%s\n", pwd);
+	free(pwd);
 }
 
 /* int	main()

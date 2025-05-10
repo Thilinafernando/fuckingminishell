@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 22:13:33 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/09 22:00:20 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/10 20:36:23 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,11 @@ void	ft_echo(char **args)
 	while (args[i])
 	{
 		if (ft_strncmp(args[1], "-n", 2) != 0 && i == 1)
+		{
 			printf("%s", args[i]);
+			if (args[i + 1])
+				printf(" ");
+		}
 		else if ((ft_strncmp(args[1], "-n", 2) == 0 && i == 1))
 			flag = 1;
 		if (i > 1)

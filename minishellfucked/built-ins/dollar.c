@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:47:35 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/10 20:31:10 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:32:34 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,112 +56,112 @@ char	*mdollar(char *str, t_info *info)
 	return (NULL);
 }
 
-char	*dollarfull(char *str, t_info *info)
-{
-	char	*dollar;
-	char	*gg;
-	char	*full;
-	int		i;
+// char	*dollarfull(char *str, t_info *info)
+// {
+// 	char	*dollar;
+// 	char	*gg;
+// 	char	*full;
+// 	int		i;
 
-	i = 0;
-	while ((str[i] >= 'a' && str[i] <= 'z') || ((str[i] >= 'A' && str[i] <= 'Z')) || str[i] == '_'
-		|| (str[i] >= '0' && str[i] <= '9') || str[i] == 61 || str[i] == '?')
-		i++;
-	dollar = malloc((i + 1) * sizeof(char));
-	if (!dollar)
-		return (estat(1), NULL);
-	ft_strncpy(dollar, str, i);
-	dollar[i] = '\0';
-	// printf("dollar = %s\n", dollar);
-	gg = mdollar(dollar, info);
-	// printf("gg = %s\n", gg);
-	free(dollar);
-	if (!gg)
-		gg = ft_strdup("");
-	full = setfull(gg, str, i);
-	free(gg);
-	return (full);
-}
+// 	i = 0;
+// 	while ((str[i] >= 'a' && str[i] <= 'z') || ((str[i] >= 'A' && str[i] <= 'Z')) || str[i] == '_'
+// 		|| (str[i] >= '0' && str[i] <= '9') || str[i] == 61 || str[i] == '?')
+// 		i++;
+// 	dollar = malloc((i + 1) * sizeof(char));
+// 	if (!dollar)
+// 		return (estat(1), NULL);
+// 	ft_strncpy(dollar, str, i);
+// 	dollar[i] = '\0';
+// 	// printf("dollar = %s\n", dollar);
+// 	gg = mdollar(dollar, info);
+// 	// printf("gg = %s\n", gg);
+// 	free(dollar);
+// 	if (!gg)
+// 		gg = ft_strdup("");
+// 	full = setfull(gg, str, i);
+// 	free(gg);
+// 	return (full);
+// }
 
-int	arg_execve2(char ***command, int flag)
-{
-	int	i;
-	int	j;
-	char	**tmp;
+// int	arg_execve2(char ***command, int flag)
+// {
+// 	int	i;
+// 	int	j;
+// 	char	**tmp;
 
-	i = 0;
-	while ((*command)[i])
-		i++;
-	tmp = malloc((i - flag + 1) * sizeof(char *));
-	if (!tmp)
-		return (estat(1), -1);
-	i = 0;
-	j = 0;
-	while ((*command)[i])
-	{
-		if (ft_strcmp((*command)[i], "flagbyme") != 0)
-		{
-			tmp[j] = ft_strdup((*command)[i]);
-			j++;
-		}
-		i++;
-	}
-	tmp[j] = NULL;
-	free_mat((*command));
-	(*command) = tmp;
-	return (0);
-}
+// 	i = 0;
+// 	while ((*command)[i])
+// 		i++;
+// 	tmp = malloc((i - flag + 1) * sizeof(char *));
+// 	if (!tmp)
+// 		return (estat(1), -1);
+// 	i = 0;
+// 	j = 0;
+// 	while ((*command)[i])
+// 	{
+// 		if (ft_strcmp((*command)[i], "flagbyme") != 0)
+// 		{
+// 			tmp[j] = ft_strdup((*command)[i]);
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	tmp[j] = NULL;
+// 	free_mat((*command));
+// 	(*command) = tmp;
+// 	return (0);
+// }
 
-int	arg_execve(char ***command, t_info *info)
-{
-	int	i;
-	int	flag;
-	char	*expansion;
+// int	arg_execve(char ***command, t_info *info)
+// {
+// 	int	i;
+// 	int	flag;
+// 	char	*expansion;
 
-	i = 0;
-	flag = 0;
-	while ((*command)[i] && (*command)[i + 1])
-	{
-		if ((*command)[i][0] == '$')
-		{
-			if ((*command)[i + 1][0] == ';')
-			{
-				expansion = ft_strdup((*command)[i + 1] + 1);
-				free((*command)[i + 1]);
-				(*command)[i + 1] = expansion;
-				break;
-			}
-			if ((*command)[i + 1][0] == ':')
-			{
-				expansion = ft_strdup((*command)[i + 1] + 1);
-				free((*command)[i + 1]);
-				(*command)[i + 1] = expansion;
-				free (expansion);
-			}
-			flag++;
-			expansion = dollarfull((*command)[i + 1], info);
-			if (!expansion)
-				return (-1);
-			free((*command)[i]);
-			(*command)[i] = ft_strdup("flagbyme");
-			free((*command)[i + 1]);
-			(*command)[i + 1] = expansion;
-		}
-		if ((*command)[i + 1][0] == ';' || (*command)[i + 1][0] == ':')
-		{
-			expansion = ft_strdup((*command)[i + 1] + 1);
-			free((*command)[i + 1]);
-			(*command)[i + 1] = expansion;
-		}
-		i++;
-	}
-	if (flag != 0)
-	{
-		if (arg_execve2(command, flag) == -1)
-			return (-1);
-	}
-	return (0);
-}
+// 	i = 0;
+// 	flag = 0;
+// 	while ((*command)[i] && (*command)[i + 1])
+// 	{
+// 		if ((*command)[i][0] == '$')
+// 		{
+// 			if ((*command)[i + 1][0] == ';')
+// 			{
+// 				expansion = ft_strdup((*command)[i + 1] + 1);
+// 				free((*command)[i + 1]);
+// 				(*command)[i + 1] = expansion;
+// 				break;
+// 			}
+// 			if ((*command)[i + 1][0] == ':')
+// 			{
+// 				expansion = ft_strdup((*command)[i + 1] + 1);
+// 				free((*command)[i + 1]);
+// 				(*command)[i + 1] = expansion;
+// 				free (expansion);
+// 			}
+// 			flag++;
+// 			expansion = dollarfull((*command)[i + 1], info);
+// 			if (!expansion)
+// 				return (-1);
+// 			free((*command)[i]);
+// 			(*command)[i] = ft_strdup("flagbyme");
+// 			free((*command)[i + 1]);
+// 			(*command)[i + 1] = expansion;
+// 		}
+// 		if ((*command)[i + 1][0] == ';' || (*command)[i + 1][0] == ':')
+// 		{
+// 			expansion = ft_strdup((*command)[i + 1] + 1);
+// 			free((*command)[i + 1]);
+// 			(*command)[i + 1] = expansion;
+// 		}
+// 		i++;
+// 	}
+// 	if (flag != 0)
+// 	{
+// 		if (arg_execve2(command, flag) == -1)
+// 			return (-1);
+// 	}
+// 	return (0);
+// }
 
 /* int	main(int ac, char **av, char **env)
 {

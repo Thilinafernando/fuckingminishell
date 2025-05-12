@@ -6,7 +6,7 @@
 /*   By: tkurukul <tkurukul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/16 18:29:40 by tkurukul          #+#    #+#             */
-/*   Updated: 2025/05/09 23:09:05 by tkurukul         ###   ########.fr       */
+/*   Updated: 2025/05/12 18:15:54 by tkurukul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,8 +218,6 @@ void	ft_execution(t_info *info)
 			}
 		}
 		pid = fork();
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
 		if (pid == -1)
 		{
 			ft_printf(2, "Minishell: error fork");
@@ -227,6 +225,8 @@ void	ft_execution(t_info *info)
 		}
 		if (pid == 0)
 		{
+			signal(SIGINT, SIG_DFL);
+			signal(SIGQUIT, SIG_DFL);
 			if (i != 0)
 			{
 				if (dup2(prevpipe, 0) == -1)
